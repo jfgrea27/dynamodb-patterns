@@ -1,0 +1,10 @@
+services:
+  dynamodb-local:
+    image: "amazon/dynamodb-local:latest"
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    working_dir: /home/dynamodblocal
+    user: root  # so the container can write to the bind-mounted data dir
+    ports:
+      - "${DYNAMODB_PORT:-8000}:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
